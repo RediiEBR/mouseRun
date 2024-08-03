@@ -5,50 +5,10 @@ import java.util.*;
 import mouserun.game.Cheese;
 import mouserun.game.Grid;
 import mouserun.game.Mouse;
-
+import mouserun.game.Par;
 public class explorer extends Mouse
 {
-	private class Par<x,y>
-	{
-		public x a;
-		public y b;
-		Par(x x1,y y1)
-		{
-			a=x1;
-			b=y1;
-		}
-		@Override
-		public boolean equals(Object o)
-		{
-			
-			if (this == o)
-			{
-				return true;
-			}
 
-			if (o == null || getClass() != o.getClass()) 
-			{
-				return false;
-			}
-
-			Par<?, ?> pair = (Par<?, ?>) o;
-
-			// llamar al método `equals()` de los objetos subyacentes
-			if (!a.equals(pair.a)) 
-			{
-				return false;
-			}
-			return b.equals(pair.b);
-		}
-		@Override
-        // Calcula el código hash de un objeto para admitir tablas hash
-        public int hashCode() 
-		{
-            // usa códigos hash de los objetos subyacentes
-            return 31 * a.hashCode() + b.hashCode();
-        }
-		
-	}
 	private final HashMap<Par<Integer,Integer>,Grid> visitados;
 	private final HashMap<Par<Integer,Integer>,Grid> visitadosR;
 	private final Stack<Integer> vueltaAtras;
@@ -59,8 +19,6 @@ public class explorer extends Mouse
 		vueltaAtras = new Stack<>();
 		visitados = new HashMap<>();
 		visitadosR = new HashMap<>();
-		
-		
 	}
 
 	@Override
@@ -71,7 +29,7 @@ public class explorer extends Mouse
         ArrayList<Integer> opciones = new ArrayList<>();
         if(!visitadosR.containsKey(new Par<>(currentGrid.getX(),currentGrid.getY())))
         {
-        	visitadosR.put(new Par<Integer,Integer>(currentGrid.getX(),currentGrid.getY()),currentGrid);
+        	visitadosR.put(new Par<>(currentGrid.getX(),currentGrid.getY()),currentGrid);
         	incExploredGrids();
         }
         if(!visitados.containsKey(new Par<>(currentGrid.getX(),currentGrid.getY())))
