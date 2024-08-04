@@ -6,6 +6,8 @@ import mouserun.game.Cheese;
 import mouserun.game.Grid;
 import mouserun.game.Mouse;
 import mouserun.game.Par;
+
+@SuppressWarnings("unused")
 public class explorer extends Mouse
 {
 
@@ -54,7 +56,7 @@ public class explorer extends Mouse
             opciones.add(LEFT);
         }
 
-        if(opciones.size()==0)
+        if(opciones.isEmpty())
         {
         	try
         	{
@@ -66,17 +68,12 @@ public class explorer extends Mouse
         		return move(currentGrid, cheese);
         	}
         }
-       
-        
-        Integer solucion=Math.abs(random.nextInt()%opciones.size());
-       
-        
+        int solucion=Math.abs(random.nextInt()%opciones.size());
         if(opciones.get(solucion)==UP) vueltaAtras.push(DOWN);
     	else if(opciones.get(solucion)==DOWN) vueltaAtras.push(UP);
     	else if(opciones.get(solucion)==LEFT) vueltaAtras.push(RIGHT);
     	else if((opciones.get(solucion)==RIGHT)) vueltaAtras.push(LEFT);
     	else vueltaAtras.push(BOMB);
-        
         return opciones.get(solucion);
 	}
 
@@ -89,35 +86,10 @@ public class explorer extends Mouse
 	@Override
 	public void respawned() 
 	{
-		// TODO Auto-generated method stub
+
 		visitados.clear();
 		vueltaAtras.clear();
 
 	}
-	 public boolean visitada(Grid casilla, int direccion)
-	 {
-	        int x = casilla.getX();
-	        int y = casilla.getY();
-	        
-	        switch (direccion)
-	        {
-	            case UP:
-	                y += 1;
-	                break;
-	            
-	            case DOWN:
-	                y -= 1;
-	                break;
-	            
-	            case LEFT:
-	                x -= 1;
-	                break;
-	            
-	            case RIGHT:
-	                x += 1;
-	                break;
-	        }
-	        Par<Integer,Integer> par = new Par<>(x, y);
-	        return visitados.containsKey(par);
-	    }
+
 }
